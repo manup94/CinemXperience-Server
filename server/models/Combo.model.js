@@ -17,7 +17,7 @@ const comboSchema = new Schema(
             required: [true, 'Drinks is required.']
         },
         price: {
-            type: number,
+            type: Number,
             required: [true, 'Price is required.']
         }
     },

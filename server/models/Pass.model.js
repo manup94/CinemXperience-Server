@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose")
 
-const sessionSchema = new Schema(
+const passSchema = new Schema(
     {
         movie: {
             type: Schema.Types.ObjectId,
@@ -18,6 +18,6 @@ const sessionSchema = new Schema(
     }
 )
 
-const Session = model("Session", sessionSchema)
+const Pass = model("Pass", passSchema)
 
-module.exports = Session
+module.exports = Pass
