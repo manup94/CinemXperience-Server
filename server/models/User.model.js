@@ -11,6 +11,7 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
+      minlength: [5, 'The minimum password length is 5 letters'],
       required: [true, 'Password is required.']
     },
     avatar: {
