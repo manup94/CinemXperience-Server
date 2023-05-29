@@ -5,8 +5,6 @@ const passSchema = new Schema(
         movie: {
             type: Schema.Types.ObjectId,
             required: [true, 'Movie is required.'],
-            unique: true,
-
         },
         date: {
             type: Date,

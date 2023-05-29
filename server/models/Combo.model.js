@@ -6,14 +6,12 @@ const comboSchema = new Schema(
             type: String,
             required: [true, 'Name is required.'],
         },
-        comboImg: {
+        image: {
             type: String
         },
-
         snacks: {
             type: String,
             required: [true, 'Snacks is required.'],
-
         },
         drinks: {
             type: String,
