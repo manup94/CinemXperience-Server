@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const fileUploader = require('../config/cloudinary.config')
+
 
 const Combo = require('../models/Combo.model')
 
@@ -22,14 +22,13 @@ router.get("/:combo_id/getOneCombo", (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.post("/createNewCombo", fileUploader.single('image'), (req, res, next) => {
+router.post("/createNewCombo", (req, res, next) => {
 
-    const { name, snacks, drinks, price } = req.body
+    const { name, snacks, drinks, price, image } = req.body
 
-    console.log(req.body)
 
     Combo
-        .create({ name, snacks, drinks, price, image: req.file.path })
+        .create({ name, snacks, drinks, price, image })
         .then(response => res.json(response))
         .catch(err => next(err))
 })
