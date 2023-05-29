@@ -23,10 +23,10 @@ router.get("/:combo_id/getOneCombo", (req, res, next) => {
 
 router.post("/createNewCombo", (req, res, next) => {
 
-    const { name, snacks, drinks, price } = req.body
+    const { name, snacks, drinks, price, comboImg } = req.body
 
     Combo
-        .create({ name, snacks, drinks, price })
+        .create({ name, snacks, drinks, price, comboImg })
         .then(response => res.json(response))
         .catch(err => next(err))
 })

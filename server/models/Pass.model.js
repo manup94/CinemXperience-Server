@@ -8,8 +8,8 @@ const passSchema = new Schema(
             unique: true,
 
         },
-        hour: {
-            type: String,
+        date: {
+            type: Date,
             required: [true, 'Hour is required.']
         }
     },
