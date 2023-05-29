@@ -8,8 +8,8 @@ In this final bootcamp project, we are going to create a website for cinema plat
 API  TMBD
 | HTTP |                               URL PATH                               |        DESCRIPTION        |
 | :--- | :------------------------------------------------------------------: | :-----------------------: |
-| GET  | https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1 |    Movies in theatres     |
-| GET  |     https://api.themoviedb.org/3/movie/{movie_id}?language=es-ES     | Matching ID movie details |
+| GET  | /list |    Movies in theatres     |
+| GET  |  https://api.themoviedb.org/3/movie/{movie_id}?language=es-ES     | Matching ID movie details |
 
 
 **Auth**
