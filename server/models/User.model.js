@@ -31,7 +31,12 @@ const userSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: 'Combo'
       }
-    }]
+    }],
+    role: {
+      type: String,
+      enum: ['USER', 'ADMIN'],
+      default: 'USER'
+    }
   },
   {
     timestamps: true
