@@ -2,13 +2,13 @@ const { Schema, model } = require("mongoose")
 
 const passSchema = new Schema(
     {
-        movie: {
-            type: Schema.Types.ObjectId,
-            required: [true, 'Movie is required.'],
+        movieId: {
+            type: Schema.Types.Number,
+            required: [true, 'Movie is required.']
         },
-        date: {
+        movieDate: {
             type: Date,
-            required: [true, 'Hour is required.']
+            required: [true, 'Date is required.']
         }
     },
     {

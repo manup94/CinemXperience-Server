@@ -14,4 +14,15 @@ router.get('/list', (req, res, next) => {
         .catch(err => next(err))
 })
 
+router.get('/movie/:movie_id', (req, res, next) => {
+    const movieId = req.params.movie_id
+
+    axios.get(`https://api.themoviedb.org/3/movie/${movieId}?language=es-ES&api_key=${process.env.API_TOKEN}`)
+        .then(response => {
+            console.log({ response });
+            res.json(response.data);
+        })
+        .catch(err => next(err));
+});
+
 module.exports = router;
