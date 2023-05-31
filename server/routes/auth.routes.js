@@ -13,7 +13,7 @@ router.post('/signup', (req, res, next) => {
     const { email, password, username, avatar } = req.body
 
     if (password.length < 5) {
-        res.status(400).json({ message: 'Password must have at least 5 characters' })
+        res.status(400).json({ errorMessages: ['Password must have at least 5 characters'] })
         return
     }
 
@@ -22,7 +22,7 @@ router.post('/signup', (req, res, next) => {
         .then((foundUser) => {
 
             if (foundUser) {
-                res.status(400).json({ message: "User already exists." })
+                res.status(400).json({ errorMessages: ['User already exists.'] })
                 return
             }
 
@@ -48,7 +48,7 @@ router.post('/login', (req, res, next) => {
     const { email, password } = req.body;
 
     if (email === '' || password === '') {
-        res.status(400).json({ message: "Provide email and password." });
+        res.status(400).json({ errorMessages: ["Provide email and password."] });
         return;
     }
 
@@ -57,15 +57,15 @@ router.post('/login', (req, res, next) => {
         .then((foundUser) => {
 
             if (!foundUser) {
-                res.status(401).json({ message: "User not found." })
+                res.status(401).json({ errorMessages: ["User not found."] })
                 return;
             }
 
             if (bcrypt.compareSync(password, foundUser.password)) {
 
-                const { _id, email, username, avatar, tikets, combos } = foundUser;
+                const { _id, email, username, avatar, tikets, combos, role } = foundUser;
 
-                const payload = { _id, email, username, avatar, tikets, combos }
+                const payload = { _id, email, username, avatar, tikets, combos, role }
 
                 const authToken = jwt.sign(
                     payload,
@@ -76,7 +76,7 @@ router.post('/login', (req, res, next) => {
                 res.json({ authToken: authToken });
             }
             else {
-                res.status(401).json({ message: "Unable to authenticate the user" });
+                res.status(401).json({ errorMessages: ["Unable to authenticate the user"] });
             }
 
         })
@@ -84,6 +84,8 @@ router.post('/login', (req, res, next) => {
 })
 
 router.get('/verify', isAuthenticated, (req, res, next) => {
+
+    console.log(req.payload)
 
     res.status(200).json(req.payload)
 })
