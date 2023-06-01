@@ -7,7 +7,7 @@ const GetAllCombos = (req, res, next) => {
         .find()
         .sort({ name: 1 })
         // TODO: REVISAR TRANSACCIONES QUE PUEDAN SER PROYECTADAS
-        // .select({name: 1, etc...})
+        // .select({name: 1}}
         .then(response => res.json(response))
         .catch(err => next(err))
 
@@ -41,7 +41,7 @@ const DeleteCombo = (req, res, next) => {
 
     Combo
         .findByIdAndDelete(combo_id)
-        .then(response => res.json(response))
+        .then(() => res.sendStatus(204))
         .catch(err => next(err))
 
 }

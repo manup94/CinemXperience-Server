@@ -7,6 +7,8 @@ const GetAllPass = (req, res, next) => {
 
     Pass
         .find()
+        .sort({ name: 1 })
+        // TODO: REVISAR TRANSACCIONES QUE PUEDAN SER PROYECTADAS
         .then(response => {
 
             passesInfo = response
