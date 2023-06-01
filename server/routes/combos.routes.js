@@ -1,46 +1,18 @@
 const router = require("express").Router();
 
+const {
+    GetAllCombos,
+    GetOneCombo,
+    CreateNewCombo,
+    DeleteCombo
+} = require('./../controllers/combos.controllers')
 
-const Combo = require('../models/Combo.model')
+router.get("/getAllCombos", GetAllCombos)
+router.get("/:combo_id/getOneCombo", GetOneCombo)
+router.post("/createNewCombo", CreateNewCombo)
+router.delete("/:combo_id/delete", DeleteCombo)
 
-
-router.get('/getAllCombos', (req, res, next) => {
-    Combo
-        .find()
-        .sort({ name: 1 })
-        .then(response => setTimeout(() => res.json(response), 1000))
-        .catch(err => next(err))
-})
-
-router.get("/:combo_id/getOneCombo", (req, res, next) => {
-
-    const { combo_id } = req.params
-
-    Combo
-        .findById(combo_id)
-        .then(response => res.json(response))
-        .catch(err => next(err))
-})
-
-router.post("/createNewCombo", (req, res, next) => {
-
-    const { name, snacks, drinks, price, image } = req.body
+module.exports = router
 
 
-    Combo
-        .create({ name, snacks, drinks, price, image })
-        .then(response => res.json(response))
-        .catch(err => next(err))
-})
 
-router.delete('/:combo_id/delete', (req, res, next) => {
-
-    const { combo_id } = req.params
-
-    Combo
-        .findByIdAndDelete(combo_id)
-        .then(response => res.json(response))
-        .catch(err => next(err))
-})
-
-module.exports = router;

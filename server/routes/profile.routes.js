@@ -1,14 +1,12 @@
 const router = require("express").Router();
-const User = require('../models/User.model')
 
-router.get("/:profile_id/getOneProfile", (req, res, next) => {
+const {
+    GetOneProfile,
+    GetTickets
+} = require('./../controllers/profile.controllers')
 
-    const { profile_id } = req.params
+router.get("/:profile_id/getOneProfile", GetOneProfile)
+router.get("//:profile_id/getTickets/:movie_id", GetTickets)
 
-    User
-        .findById(profile_id)
-        .then(response => res.json(response))
-        .catch(err => next(err))
-})
 
-module.exports = router;
+module.exports = router

@@ -1,16 +1,14 @@
-const router = require("express").Router();
 const uploaderMiddleware = require('../middlewares/uploader.middleware')
+const router = require("express").Router();
 
-router.post('/image', uploaderMiddleware.single('image'), (req, res, next) => {
+const { UploadImg } = require('./../controllers/upload.controllers')
 
-    if (!req.file) {
-        res.status(500).json({ errorMessage: 'Error al cargar archivo' })
-        return
-    }
-    res.json({ cloudinary_url: req.file.path })
-})
+router.post("/image", uploaderMiddleware.single('image'), UploadImg)
 
 
+module.exports = router
+
+// TODO: DESACOPLAR SERVICIOS
 
 
-module.exports = router;
+
