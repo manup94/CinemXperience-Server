@@ -6,7 +6,7 @@ const GetAllCombos = (req, res, next) => {
     Combo
         .find()
         .sort({ name: 1 })
-        // TODO: REVISAR TRANSACCIONES QUE PUEDAN SER PROYECTADAS
+        // : REVISAR TRANSACCIONES QUE PUEDAN SER PROYECTADAS
         // .select({name: 1, etc...})
         .then(response => res.json(response))
         .catch(err => next(err))
