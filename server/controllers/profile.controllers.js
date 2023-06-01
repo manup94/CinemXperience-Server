@@ -25,15 +25,7 @@ const GetTickets = (req, res, next) => {
 
 const EditProfile = (req, res, next) => {
 
-<<<<<<< HEAD
-
-
     const { profile_id } = req.params
-
-    //const { editedProfileData } = req.body
-=======
-    const { profile_id } = req.params
->>>>>>> manuel
     const { username, email, avatar } = req.body
     User
         .findByIdAndUpdate(profile_id, { username, email, avatar })
