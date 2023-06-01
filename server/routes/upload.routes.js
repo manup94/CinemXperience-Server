@@ -8,7 +8,7 @@ router.post("/image", uploaderMiddleware.single('image'), UploadImg)
 
 module.exports = router
 
-// TODO: DESACOPLAR SERVICIOS
+
 
 
 
