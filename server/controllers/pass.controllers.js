@@ -46,7 +46,8 @@ const CreateNewPass = (req, res, next) => {
 
     Pass
         .create({ movieDate, movieId })
-        .then(response => res.json(response))
+        .then(() => res.sendStatus(204))
+        // .then(response => res.json(response))
         .catch(err => next(err))
 
 }
@@ -55,7 +56,6 @@ const DeletePass = (req, res, next) => {
 
     const { pass_id } = req.params
 
-    // TODO: REVISAR ENDPOINTS RESOLUBLES CON SENDSTATUS
     Pass
         .findByIdAndDelete(pass_id)
         .then(() => res.sendStatus(204))

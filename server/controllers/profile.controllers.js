@@ -24,12 +24,14 @@ const GetTickets = (req, res, next) => {
 }
 
 const EditProfile = (req, res, next) => {
-    //const { editedProfileData } = req.body
+
+    const { profile_id } = req.params
     const { username, email, avatar } = req.body
     User
-        .findByIdAndUpdate(profile_id, { username, email, avatar }/*editedProfileData*/)
+        .findByIdAndUpdate(profile_id, { username, email, avatar })
         .then(response => res.json(response))
         .catch(err => next(err))
+
 
 }
 
