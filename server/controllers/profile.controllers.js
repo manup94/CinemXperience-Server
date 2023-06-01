@@ -23,8 +23,25 @@ const GetTickets = (req, res, next) => {
         .catch(err => next(err))
 }
 
+const EditProfile = (req, res, next) => {
+
+
+
+    const { profile_id } = req.params
+
+    //const { editedProfileData } = req.body
+    const { username, email, avatar } = req.body
+    User
+        .findByIdAndUpdate(profile_id, { username, email, avatar })
+        .then(response => res.json(response))
+        .catch(err => next(err))
+
+
+}
+
 module.exports = {
     GetOneProfile,
     GetTickets,
+    EditProfile
 }
 
