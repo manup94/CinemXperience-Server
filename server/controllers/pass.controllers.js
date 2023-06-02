@@ -1,3 +1,4 @@
+const { findById } = require('../models/Combo.model');
 const Pass = require('../models/Pass.model')
 const axios = require("axios");
 
@@ -49,8 +50,19 @@ const CreateNewPass = (req, res, next) => {
     Pass
         .create({ movieDate, movieId })
         .then(() => res.sendStatus(204))
-        // .then(response => res.json(response))
         .catch(err => next(err))
+
+}
+
+const GetPassByMovie = (req, res, next) => {
+    const { movieId } = req.params
+
+    Pass
+        .find({ movieId })
+        .then((response) => {
+            res.json(response)
+        })
+        .catch((err) => console.log(err))
 
 }
 
@@ -65,6 +77,7 @@ const DeletePass = (req, res, next) => {
 }
 
 module.exports = {
+    GetPassByMovie,
     GetAllPass,
     GetOnePass,
     CreateNewPass,
