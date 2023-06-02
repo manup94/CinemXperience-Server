@@ -23,7 +23,7 @@ const userSchema = new Schema(
       default: 'https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg'
     },
     packs: [{
-      tiket: {
+      ticket: {
         type: Schema.Types.ObjectId,
         ref: 'Pass'
       },

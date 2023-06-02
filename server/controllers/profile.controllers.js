@@ -14,11 +14,11 @@ const GetOneProfile = (req, res, next) => {
 const GetTickets = (req, res, next) => {
 
     const { profile_id } = req.params
-    const { tiket, combo } = req.body
-    const pack = { tiket, combo }
+    const { ticket, combo } = req.body;
+    const packs = { ticket, combo };
 
     User
-        .findByIdAndUpdate(profile_id, { $push: { packs: pack } }, { new: true })
+        .findByIdAndUpdate(profile_id, { $push: { packs: { ticket, combo } } }, { new: true })
         .then(response => res.json(response))
         .catch(err => next(err))
 }
@@ -32,12 +32,22 @@ const EditProfile = (req, res, next) => {
         .then(response => res.json(response))
         .catch(err => next(err))
 
-
 }
+
+const GetPackDetails = (req, res, next) => {
+    const { pack_id } = req.params
+    User
+        .findById(pack_id)
+        .then(response => res.json(response))
+        .catch(err => next(err))
+}
+
+
 
 module.exports = {
     GetOneProfile,
     GetTickets,
-    EditProfile
+    EditProfile,
+    GetPackDetails
 }
 
