@@ -45,6 +45,7 @@ const EditProfile = (req, res, next) => {
 <<<<<<< HEAD
 }
 
+<<<<<<< HEAD
 const GetPackDetails = (req, res, next) => {
     const { pack_id } = req.params
     User
@@ -94,6 +95,17 @@ const GetPackDetails = (req, res, next) => {
         .then(response => res.json(response))
         .catch(err => next(err))
 }
+=======
+// const GetPackDetails = (req, res, next) => {
+//     const { pack_id } = req.params
+//     User
+//         .findById(pack_id)
+//         .populate('packs.ticket')
+//         // .populate('packs.combo')
+//         .then(response => res.json(response))
+//         .catch(err => next(err))
+// }
+>>>>>>> 18ead63 (monday commit)
 
 
 <<<<<<< HEAD
@@ -105,11 +117,15 @@ module.exports = {
     GetTickets,
     EditProfile,
 <<<<<<< HEAD
+<<<<<<< HEAD
     GetPackDetails,
     AddWatchlistId,
     removeMovieFromWatchlist
 =======
     GetPackDetails
 >>>>>>> 2e602f1 (done)
+=======
+    // GetPackDetails
+>>>>>>> 18ead63 (monday commit)
 }
 
