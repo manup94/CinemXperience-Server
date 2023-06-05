@@ -9,7 +9,10 @@ const GetMovies = (req, res, next) => {
 
 const GetBestMovies = (req, res, next) => {
 
-    axios.get(`https://api.themoviedb.org/3/discover/movie?language=en-US&page=1&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200&api_key=${process.env.API_TOKEN}&page=1&limit=40`)
+    const { page } = req.query
+
+
+    axios.get(`https://api.themoviedb.org/3/discover/movie?language=en-US&page=${page}&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200&api_key=${process.env.API_TOKEN}`)
         .then(response => res.json(response.data))
         .catch(err => next(err))
 }
