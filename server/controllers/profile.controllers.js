@@ -6,6 +6,8 @@ const GetOneProfile = (req, res, next) => {
 
     User
         .findById(profile_id)
+        .populate('packs.ticket')
+        .populate('packs.combo')
         .then(response => res.json(response))
         .catch(err => next(err))
 
@@ -34,13 +36,15 @@ const EditProfile = (req, res, next) => {
 
 }
 
-const GetPackDetails = (req, res, next) => {
-    const { pack_id } = req.params
-    User
-        .findById(pack_id)
-        .then(response => res.json(response))
-        .catch(err => next(err))
-}
+// const GetPackDetails = (req, res, next) => {
+//     const { pack_id } = req.params
+//     User
+//         .findById(pack_id)
+//         .populate('packs.ticket')
+//         // .populate('packs.combo')
+//         .then(response => res.json(response))
+//         .catch(err => next(err))
+// }
 
 
 
@@ -48,6 +52,6 @@ module.exports = {
     GetOneProfile,
     GetTickets,
     EditProfile,
-    GetPackDetails
+    // GetPackDetails
 }
 
