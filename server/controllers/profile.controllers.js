@@ -121,11 +121,6 @@ module.exports = {
     GetPackDetails,
     AddWatchlistId,
     removeMovieFromWatchlist
-=======
-    GetPackDetails
->>>>>>> 2e602f1 (done)
-=======
-    // GetPackDetails
->>>>>>> 18ead63 (monday commit)
-}
+
+    }
 
