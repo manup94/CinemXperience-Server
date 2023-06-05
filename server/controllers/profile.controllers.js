@@ -19,6 +19,11 @@ const GetTickets = (req, res, next) => {
     const { ticket, combo } = req.body;
     const packs = { ticket, combo };
 
+    if (ticket === undefined || combo === undefined) {
+        res.status(400).json({ errorMessages: ["Provide a ticket and combo."] });
+        return;
+    }
+
     User
         .findByIdAndUpdate(profile_id, { $push: { packs: { ticket, combo } } }, { new: true })
         .then(response => res.json(response))
@@ -51,12 +56,19 @@ const AddWatchlistId = (req, res, next) => {
     const { movie_id } = req.params
     const { profile_id } = req.body
 
-    console.log(movie_id, profile_id)
-
     User
-        .findByIdAndUpdate(profile_id, { $push: { watchList: movie_id } }, { new: true })
-        .then(response => res.json(response))
+        .isDuplicateMovie(profile_id, movie_id)
+        .then(exists => {
+            if (!exists) {
+                User
+                    .findByIdAndUpdate(profile_id, { $push: { watchList: movie_id } }, { new: true })
+                    .then(response => res.json(response))
+            } else {
+                res.json(null)
+            }
+        })
         .catch(err => next(err))
+
 }
 
 const removeMovieFromWatchlist = (req, res, next) => {
