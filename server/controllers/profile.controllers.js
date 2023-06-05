@@ -18,11 +18,14 @@ const GetTickets = (req, res, next) => {
     const { profile_id } = req.params
     const { ticket, combo } = req.body;
     const packs = { ticket, combo };
+<<<<<<< HEAD
 
     if (ticket === undefined || combo === undefined) {
         res.status(400).json({ errorMessages: ["Provide a ticket and combo."] });
         return;
     }
+=======
+>>>>>>> 2e602f1 (done)
 
     User
         .findByIdAndUpdate(profile_id, { $push: { packs: { ticket, combo } } }, { new: true })
@@ -39,6 +42,7 @@ const EditProfile = (req, res, next) => {
         .then(response => res.json(response))
         .catch(err => next(err))
 
+<<<<<<< HEAD
 }
 
 const GetPackDetails = (req, res, next) => {
@@ -79,17 +83,33 @@ const removeMovieFromWatchlist = (req, res, next) => {
 
     User
         .findByIdAndUpdate(profile_id, { $pull: { watchList: movie_id } })
+=======
+}
+
+const GetPackDetails = (req, res, next) => {
+    const { pack_id } = req.params
+    User
+        .findById(pack_id)
+>>>>>>> 2e602f1 (done)
         .then(response => res.json(response))
         .catch(err => next(err))
 }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2e602f1 (done)
 module.exports = {
     GetOneProfile,
     GetTickets,
     EditProfile,
+<<<<<<< HEAD
     GetPackDetails,
     AddWatchlistId,
     removeMovieFromWatchlist
+=======
+    GetPackDetails
+>>>>>>> 2e602f1 (done)
 }
 
