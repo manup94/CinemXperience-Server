@@ -26,6 +26,7 @@ const userSchema = new Schema(
       ticket: {
         type: Schema.Types.ObjectId,
         ref: 'Pass'
+
       },
       combo: {
         type: Schema.Types.ObjectId,
@@ -45,6 +46,13 @@ const userSchema = new Schema(
     timestamps: true
   }
 );
+
+
+
+userSchema.statics.isDuplicateMovie = function (userId, movieId) {
+  const exists = this.count({ _id: userId, watchList: movieId })
+  return exists
+}
 
 const User = model("User", userSchema);
 
