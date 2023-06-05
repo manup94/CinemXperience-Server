@@ -26,9 +26,30 @@ const GetOneMovie = (req, res, next) => {
         .catch(err => next(err));
 }
 
+const GetMoviesFromTickets = (req, res, next) => {
+
+    const { tickets } = req.body
+
+    const moviesDetailsPromises = tickets.map(elm => axios.get(`https://api.themoviedb.org/3/movie/${elm.movieId}?language=es-ES&api_key=${process.env.API_TOKEN}`))
+    return Promise.all(moviesDetailsPromises)
+        .then(moviesDetails => {
+
+            const formattedMovies = moviesDetails.map((elm, idx) => {
+                return {
+                    movieInfo: elm.data,
+                    passInfo: tickets[idx]
+                }
+            })
+
+            res.json(formattedMovies)
+        })
+
+}
+
 module.exports = {
     GetMovies,
     GetOneMovie,
-    GetBestMovies
+    GetBestMovies,
+    GetMoviesFromTickets
 }
 
