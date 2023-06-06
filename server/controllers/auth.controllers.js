@@ -7,38 +7,12 @@ const saltRounds = 10
 
 const Signup = (req, res, next) => {
 
-
     const { email, password, username, avatar } = req.body
 
-    if (password.length < 5) {
-        res.status(400).json({ errorMessages: ['Password must have at least 5 characters'] })
-        return
-    }
-
     User
-        .findOne({ email })
-        .then((foundUser) => {
-
-            if (foundUser) {
-                res.status(400).json({ errorMessages: ['User already exists.'] })
-                return
-            }
-
-            const salt = bcrypt.genSaltSync(saltRounds)
-            const hashedPassword = bcrypt.hashSync(password, salt)
-
-            return User.create({ email, password: hashedPassword, username, avatar })
-        })
-        .then((createdUser) => {
-
-            const { email, username, _id, avatar } = createdUser
-            const user = { email, username, _id, avatar }
-
-            res.status(201).json({ user })
-        })
-        .catch(err => {
-            next(err)
-        })
+        .create({ email, password, username, avatar })
+        .then(() => res.sendStatus(201))
+        .catch(err => next(err))
 
 }
 
@@ -57,20 +31,12 @@ const Login = (req, res, next) => {
 
             if (!foundUser) {
                 res.status(401).json({ errorMessages: ["User not found."] })
-                return;
+                return
             }
 
-            if (bcrypt.compareSync(password, foundUser.password)) {
+            if (foundUser.validatePassword(password)) {
 
-                const { _id, email, username, avatar, tikets, combos, role } = foundUser;
-
-                const payload = { _id, email, username, avatar, tikets, combos, role }
-
-                const authToken = jwt.sign(
-                    payload,
-                    process.env.TOKEN_SECRET,
-                    { algorithm: 'HS256', expiresIn: "5h" }
-                )
+                const authToken = foundUser.signToken()
 
                 res.json({ authToken: authToken });
             }
@@ -79,7 +45,7 @@ const Login = (req, res, next) => {
             }
 
         })
-        .catch(err => next(err));
+        .catch(err => next(err))
 
 }
 

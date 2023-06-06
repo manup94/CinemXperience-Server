@@ -1,5 +1,6 @@
 const { findById } = require('../models/Combo.model');
 const Pass = require('../models/Pass.model')
+const User = require('../models/User.model')
 const axios = require("axios");
 
 const GetAllPass = (req, res, next) => {
@@ -65,15 +66,27 @@ const GetPassByMovie = (req, res, next) => {
 
 }
 
+
 const DeletePass = (req, res, next) => {
+    const { pass_id } = req.params;
 
-    const { pass_id } = req.params
+    Pass.findByIdAndDelete(pass_id)
+        .then(() => {
+            // Buscar y eliminar el ticket con el mismo objectID en los packs del usuario
+            User.updateMany(
+                { 'packs.ticket': pass_id },
+                { $pull: { packs: { ticket: pass_id } } }
+            )
+                .then(() => res.sendStatus(204))
+                .catch((error) => {
+                    res.status(500).json({ error: 'Error al eliminar el ticket en los packs del usuario' });
+                });
+        })
+        .catch((error) => {
+            res.status(500).json({ error: 'Error al eliminar el pass' });
+        });
+};
 
-    Pass
-        .findByIdAndDelete(pass_id)
-        .then(() => res.sendStatus(204))
-        .catch(err => next(err))
-}
 
 module.exports = {
     GetPassByMovie,

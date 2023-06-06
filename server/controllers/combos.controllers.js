@@ -1,13 +1,13 @@
 const axios = require("axios");
 const Combo = require('../models/Combo.model')
+const User = require('../models/User.model')
+
 
 const GetAllCombos = (req, res, next) => {
 
     Combo
         .find()
         .sort({ name: 1 })
-        // : REVISAR TRANSACCIONES QUE PUEDAN SER PROYECTADAS
-        // .select({name: 1, etc...})
         .then(response => res.json(response))
         .catch(err => next(err))
 
@@ -41,10 +41,21 @@ const DeleteCombo = (req, res, next) => {
 
     Combo
         .findByIdAndDelete(combo_id)
-        .then(() => res.sendStatus(204))
+        .then(() => {
+            User.updateMany(
+                { 'packs.combo': combo_id },
+                { $pull: { packs: { combo: combo_id } } }
+            )
+                .then(() => res.sendStatus(204))
+                .catch((error) => {
+                    res.status(500).json({ error: 'Error al eliminar el ticket en los packs del usuario' });
+                });
+        })
         .catch(err => next(err))
 
 }
+
+
 
 module.exports = {
     GetAllCombos,
