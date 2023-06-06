@@ -46,10 +46,23 @@ const GetMoviesFromTickets = (req, res, next) => {
 
 }
 
+const GetFilteredMovies = (req, res, next) => {
+
+    const { genre_id } = req.params
+    const { page } = req.query
+
+    axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_TOKEN}&sort_by=vote_average.desc&vote_count.gte=200&page=${page}&with_genres=${genre_id}`)
+        .then(response => res.json(response.data))
+        .catch(err => next(err))
+
+
+}
+
 module.exports = {
     GetMovies,
     GetOneMovie,
     GetBestMovies,
-    GetMoviesFromTickets
+    GetMoviesFromTickets,
+    GetFilteredMovies
 }
 
