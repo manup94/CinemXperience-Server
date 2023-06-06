@@ -40,6 +40,8 @@ const EditProfile = (req, res, next) => {
         .catch(err => next(err))
 }
 
+
+
 const GetPackDetails = (req, res, next) => {
     const { pack_id } = req.params
     User

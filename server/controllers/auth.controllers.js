@@ -29,20 +29,12 @@ const Login = (req, res, next) => {
 
             if (!foundUser) {
                 res.status(401).json({ errorMessages: ["User not found."] })
-                return;
+                return
             }
 
-            if (bcrypt.compareSync(password, foundUser.password)) {
+            if (foundUser.validatePassword(password)) {
 
-                const { _id, email, username, avatar, tikets, combos, role } = foundUser;
-
-                const payload = { _id, email, username, avatar, tikets, combos, role }
-
-                const authToken = jwt.sign(
-                    payload,
-                    process.env.TOKEN_SECRET,
-                    { algorithm: 'HS256', expiresIn: "5h" }
-                )
+                const authToken = foundUser.signToken()
 
                 res.json({ authToken: authToken });
             }
@@ -51,7 +43,7 @@ const Login = (req, res, next) => {
             }
 
         })
-        .catch(err => next(err));
+        .catch(err => next(err))
 
 }
 

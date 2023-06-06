@@ -1,4 +1,8 @@
 const { Schema, model } = require("mongoose");
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
+
+
 
 const bcrypt = require('bcryptjs')
 
@@ -62,6 +66,24 @@ userSchema.pre('save', function (next) {
 userSchema.statics.isDuplicateMovie = function (userId, movieId) {
   const exists = this.count({ _id: userId, watchList: movieId })
   return exists
+}
+
+
+userSchema.methods.signToken = function () {
+  const { _id, username, email, avatar, tikets, combos, role } = this
+  const payload = { _id, username, email, avatar, tikets, combos, role }
+
+  const authToken = jwt.sign(
+    payload,
+    process.env.TOKEN_SECRET,
+    { algorithm: 'HS256', expiresIn: "6h" }
+  )
+
+  return authToken
+}
+
+userSchema.methods.validatePassword = function (candidatePassword) {
+  return bcrypt.compareSync(candidatePassword, this.password)
 }
 
 const User = model("User", userSchema);

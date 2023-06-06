@@ -46,6 +46,8 @@ const GetMoviesFromTickets = (req, res, next) => {
 
 }
 
+
+
 const GetFilteredMovies = (req, res, next) => {
 
     const { genre_id } = req.params
