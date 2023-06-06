@@ -11,8 +11,8 @@ const {
 router.get("/list", GetMovies)
 router.get("/movie/:movie_id", GetOneMovie)
 router.get("/list/top_rated", GetBestMovies)
-router.post("/populatedMoviesFromTickets", GetMoviesFromTickets)
 router.get('/list/top_rated/:genre_id', GetFilteredMovies)
+router.post("/populatedMoviesFromTickets", GetMoviesFromTickets)
 
 module.exports = router
 

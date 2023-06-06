@@ -1,45 +1,17 @@
 const User = require('../models/User.model')
 
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
 
-const saltRounds = 10
+const jwt = require('jsonwebtoken')
 
 const Signup = (req, res, next) => {
 
-
     const { email, password, username, avatar } = req.body
 
-    if (password.length < 5) {
-        res.status(400).json({ errorMessages: ['Password must have at least 5 characters'] })
-        return
-    }
-
     User
-        .findOne({ email })
-        .then((foundUser) => {
-
-            if (foundUser) {
-                res.status(400).json({ errorMessages: ['User already exists.'] })
-                return
-            }
-
-            const salt = bcrypt.genSaltSync(saltRounds)
-            const hashedPassword = bcrypt.hashSync(password, salt)
-
-            return User.create({ email, password: hashedPassword, username, avatar })
-        })
-        .then((createdUser) => {
-
-            const { email, username, _id, avatar } = createdUser
-            const user = { email, username, _id, avatar }
-
-            res.status(201).json({ user })
-        })
-        .catch(err => {
-            next(err)
-        })
-
+        .create({ email, password, username, avatar })
+        .then(() => res.sendStatus(201))
+        .catch(err => next(err))
 }
 
 const Login = (req, res, next) => {
@@ -84,7 +56,9 @@ const Login = (req, res, next) => {
 }
 
 const Verify = (req, res, next) => {
+
     res.status(200).json(req.payload)
+
 }
 
 

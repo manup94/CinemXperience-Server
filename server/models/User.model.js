@@ -1,22 +1,24 @@
 const { Schema, model } = require("mongoose");
 
+const bcrypt = require('bcryptjs')
+
 const userSchema = new Schema(
   {
     username: {
       type: String,
-      required: [true, 'Username is required']
+      required: [true, 'El usuario es necesario.']
     },
     email: {
       type: String,
-      required: [true, 'Email is required.'],
+      required: [true, 'El Email es necesario.'],
       unique: true,
       lowercase: true,
       trim: true
     },
     password: {
       type: String,
-      minlength: [5, 'The minimum password length is 5 letters'],
-      required: [true, 'Password is required.']
+      minlength: [5, 'La contraseña tiene que tener minimo 5 caracteres.'],
+      required: [true, 'La contraseña es necesaria.']
     },
     avatar: {
       type: String,
@@ -47,7 +49,15 @@ const userSchema = new Schema(
   }
 );
 
+userSchema.pre('save', function (next) {
 
+  const saltRounds = 10
+  const salt = bcrypt.genSaltSync(saltRounds)
+  const hashedPassword = bcrypt.hashSync(this.password, salt)
+  this.password = hashedPassword
+
+  next()
+})
 
 userSchema.statics.isDuplicateMovie = function (userId, movieId) {
   const exists = this.count({ _id: userId, watchList: movieId })

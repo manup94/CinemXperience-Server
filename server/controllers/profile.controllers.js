@@ -38,14 +38,8 @@ const EditProfile = (req, res, next) => {
         .findByIdAndUpdate(profile_id, { username, email, avatar })
         .then(response => res.json(response))
         .catch(err => next(err))
-<<<<<<< HEAD
 }
 
-=======
-
-
-}
->>>>>>> manuel
 const GetPackDetails = (req, res, next) => {
     const { pack_id } = req.params
     User
