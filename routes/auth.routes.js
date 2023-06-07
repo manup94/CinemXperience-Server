@@ -6,7 +6,7 @@ const {
     Signup,
     Login,
     Verify
-} = require('./../controllers/auth.controllers')
+} = require('../controllers/auth.controllers')
 
 router.post("/signup", Signup)
 router.post("/login", Login)

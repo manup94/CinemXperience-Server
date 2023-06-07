@@ -1,8 +1,7 @@
 const User = require('../models/User.model')
-
 const bcrypt = require('bcryptjs')
-
 const jwt = require('jsonwebtoken')
+
 
 const Signup = (req, res, next) => {
 
@@ -12,6 +11,7 @@ const Signup = (req, res, next) => {
         .create({ email, password, username, avatar })
         .then(() => res.sendStatus(201))
         .catch(err => next(err))
+
 }
 
 const Login = (req, res, next) => {

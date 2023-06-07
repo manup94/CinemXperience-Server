@@ -9,6 +9,10 @@ const commentSchema = new Schema(
             type: String,
             minlength: [5, 'El comentario necesita 5 caracteres como minimo.'],
         },
+        owner: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
     },
 
     {

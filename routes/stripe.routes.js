@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
+
+
 router.post('/crear-sesion-pago', async (req, res) => {
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],

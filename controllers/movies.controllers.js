@@ -52,19 +52,18 @@ const GetMoviesFromTickets = (req, res, next) => {
     const { tickets } = req.body
 
     const moviesDetailsPromises = tickets.map(elm => axios.get(`https://api.themoviedb.org/3/movie/${elm.movieId}?language=es-ES&api_key=${process.env.API_TOKEN}`))
-    return Promise.all(moviesDetailsPromises)
-        .then(moviesDetails => {
 
+    Promise
+        .all(moviesDetailsPromises)
+        .then(moviesDetails => {
             const formattedMovies = moviesDetails.map((elm, idx) => {
                 return {
                     movieInfo: elm.data,
                     passInfo: tickets[idx]
                 }
             })
-
             res.json(formattedMovies)
         })
-
 }
 
 
@@ -74,11 +73,10 @@ const GetFilteredMovies = (req, res, next) => {
     const { genre_id } = req.params
     const { page } = req.query
 
+    // TODO: MOVER A SERVICIOS DE SERVIDOR
     axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.API_TOKEN}&sort_by=vote_average.desc&vote_count.gte=200&page=${page}&with_genres=${genre_id}`)
         .then(response => res.json(response.data))
         .catch(err => next(err))
-
-
 }
 
 module.exports = {
