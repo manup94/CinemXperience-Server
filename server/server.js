@@ -1,5 +1,11 @@
-const { json } = require("body-parser");
-const app = require("./app");
+// const app = require("./app");
+// const { json } = require("body-parser");
+
+const app = require('./app');
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+
+dotenv.config();
 
 const PORT = process.env.PORT || 5005;
 

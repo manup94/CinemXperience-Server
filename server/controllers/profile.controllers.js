@@ -1,5 +1,6 @@
 const User = require('../models/User.model')
 
+
 const GetOneProfile = (req, res, next) => {
 
     const { profile_id } = req.params
