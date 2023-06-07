@@ -7,18 +7,19 @@ const GetAllComments = (req, res, next) => {
 
     Comment
         .find()
-        .sort({ name: 1 })
+        .populate('owner')
         .then(response => res.json(response))
         .catch(err => next(err))
-
 }
 
 const AddComment = (req, res, next) => {
 
-    const { movieId, message } = req.body
+    const { _id } = req.payload
+    const { comment } = req.body
+    const { movieId } = req.params
 
     Comment
-        .create({ movieId, message })
+        .create({ movieId, message: comment, owner: _id })
         .then(response => res.json(response))
         .catch(err => next(err))
 }
@@ -29,17 +30,12 @@ const DeleteComment = (req, res, next) => {
 
     Comment
         .findByIdAndDelete(comment_id)
-        .then(() => {
-            User.updateMany(
-                { 'comment': comment_id },
-                { $pull: { comment: comment_id } }
-            )
-                .then(() => res.sendStatus(204))
-                .catch((error) => {
-                    res.status(500).json({ error: 'Error al eliminar el comentario del usuario' });
-                });
-        })
-        .catch(err => next(err))
+        .then(() => res.sendStatus(204))
+        .catch(() => {
+            res.status(500).json({ error: 'Error al eliminar el comentario' });
+        });
+
+
 
 }
 
