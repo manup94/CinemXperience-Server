@@ -7,6 +7,7 @@ router.use('/movies', require('./movies.routes'))
 router.use('/upload', require('./upload.routes'))
 router.use('/combos', require('./combos.routes'))
 router.use('/profile', require('./profile.routes'))
+router.use('/stripe', require('./stripe.routes'))
 
 
 
