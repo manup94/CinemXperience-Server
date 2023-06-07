@@ -22,9 +22,30 @@ const GetOneMovie = (req, res, next) => {
     const movieId = req.params.movie_id
 
     axios.get(`https://api.themoviedb.org/3/movie/${movieId}?language=es-ES&api_key=${process.env.API_TOKEN}`)
-        .then(response => res.json(response.data))
+        .then(response => {
+            res.json(response.data)
+        })
         .catch(err => next(err));
 }
+
+// const GetOneMovie = (req, res, next) => {
+
+//     const movieId = req.params.movie_id
+
+
+//     axios.get(`https://api.themoviedb.org/3/movie/${movieId}?language=es-ES&api_key=${process.env.API_TOKEN}`)
+//         .then(response => {
+//              comments
+//              .find({movieId})
+//                  .then((comments) => {
+//                      const movie = response.data
+//                      res.json({ movie,comments })
+// })
+
+
+//         })
+//         .catch(err => next(err));
+// }
 
 const GetMoviesFromTickets = (req, res, next) => {
 

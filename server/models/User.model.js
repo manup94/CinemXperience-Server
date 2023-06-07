@@ -8,19 +8,19 @@ const userSchema = new Schema(
   {
     username: {
       type: String,
-      required: [true, 'Username is required']
+      required: [true, 'El usuario es necesario.']
     },
     email: {
       type: String,
-      required: [true, 'Email is required.'],
+      required: [true, 'El Email es necesario.'],
       unique: true,
       lowercase: true,
       trim: true
     },
     password: {
       type: String,
-      minlength: [5, 'The minimum password length is 5 letters'],
-      required: [true, 'Password is required.']
+      minlength: [5, 'La contraseña tiene que tener minimo 5 caracteres.'],
+      required: [true, 'La contraseña es necesaria.']
     },
     avatar: {
       type: String,

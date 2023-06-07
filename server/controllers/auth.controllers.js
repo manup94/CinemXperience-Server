@@ -1,9 +1,8 @@
 const User = require('../models/User.model')
 
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
 
-const saltRounds = 10
+const jwt = require('jsonwebtoken')
 
 const Signup = (req, res, next) => {
 
@@ -50,7 +49,9 @@ const Login = (req, res, next) => {
 }
 
 const Verify = (req, res, next) => {
+
     res.status(200).json(req.payload)
+
 }
 
 
