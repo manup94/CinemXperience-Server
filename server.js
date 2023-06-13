@@ -1,5 +1,3 @@
-// const app = require("./app");
-// const { json } = require("body-parser");
 
 const app = require('./app');
 const dotenv = require('dotenv');
