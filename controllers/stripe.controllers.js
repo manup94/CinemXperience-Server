@@ -14,8 +14,8 @@ router.post('/crear-sesion-pago', async (req, res) => {
             },
         ],
         mode: 'payment',
-        success_url: 'https://cinemxperience.netlify.app/', // URL de la página a la que se redirigirá después de un pago exitoso
-        cancel_url: 'https://cinemxperience.netlify.app/', // URL de la página a la que se redirigirá si el usuario cancela el pago
+        success_url: 'https://cinemxperience.netlify.app/',
+        cancel_url: 'https://cinemxperience.netlify.app/'
     });
 
     res.json({ sessionId: session.id });
